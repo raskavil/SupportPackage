@@ -1,8 +1,8 @@
 import Foundation
 
 @propertyWrapper
-struct Saved<Value: Codable> {
-    var wrappedValue: Value {
+public struct Saved<Value: Codable> {
+    public var wrappedValue: Value {
         get {
             let folderURL = try? FileManager.default.url(
                 for: .documentDirectory,
@@ -35,7 +35,7 @@ struct Saved<Value: Codable> {
         propertyName + String(describing: Value.self) + ".json"
     }
     
-    init(wrappedValue defaultValue: Value, _ propertyName: String) {
+    public init(wrappedValue defaultValue: Value, _ propertyName: String) {
         self.propertyName = propertyName
         self.defaultValue = defaultValue
     }

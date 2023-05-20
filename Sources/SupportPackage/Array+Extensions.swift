@@ -9,6 +9,10 @@ extension Array where Element: Equatable {
         }
     }
     
+    public func uniqueValues() -> Self {
+        uniqueValues(equationFunction: { $0 == $1 })
+    }
+    
 }
 
 extension Array {
@@ -19,5 +23,15 @@ extension Array {
         }
         
         return self[index]
+    }
+    
+    public func uniqueValues(equationFunction: (Element, Element) -> Bool) -> Self {
+        var returnValue: Self = []
+        forEach { value in
+            if !returnValue.contains(where: { equationFunction(value, $0) }) {
+                returnValue.append(value)
+            }
+        }
+        return returnValue
     }
 }
