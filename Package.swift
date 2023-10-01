@@ -6,5 +6,8 @@ import PackageDescription
 let package = Package(
     name: "SupportPackage",
     products: [.library(name: "SupportPackage", targets: ["SupportPackage"])],
-    targets: [.target(name: "SupportPackage", dependencies: [])]
+    targets: [
+        .target(name: "SupportPackage", dependencies: []),
+        .testTarget(name: "SupportPackageTests", dependencies: ["SupportPackage"])
+    ]
 )

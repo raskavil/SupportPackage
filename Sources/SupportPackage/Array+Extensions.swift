@@ -1,5 +1,5 @@
 
-extension Array where Element: Equatable {
+public extension Array where Element: Equatable {
     
     mutating func toggleMembership(of toggled: Element) {
         if let index = firstIndex(where: { toggled == $0 }) {
@@ -9,15 +9,21 @@ extension Array where Element: Equatable {
         }
     }
     
-    public func uniqueValues() -> Self {
-        uniqueValues(equationFunction: { $0 == $1 })
+    mutating func removeIfPresent(_ element: Element) {
+        if let index = firstIndex(of: element) {
+            remove(at: index)
+        }
     }
     
+    func uniqueValues() -> Self {
+        uniqueValues(equationFunction: { $0 == $1 })
+    }
+
 }
 
-extension Array {
+public extension Array {
     
-    public subscript(safe index: Index) -> Element? {
+    subscript(safe index: Index) -> Element? {
         guard index >= 0, index < endIndex else {
             return nil
         }
@@ -25,7 +31,7 @@ extension Array {
         return self[index]
     }
     
-    public func uniqueValues(equationFunction: (Element, Element) -> Bool) -> Self {
+    func uniqueValues(equationFunction: (Element, Element) -> Bool) -> Self {
         var returnValue: Self = []
         forEach { value in
             if !returnValue.contains(where: { equationFunction(value, $0) }) {
