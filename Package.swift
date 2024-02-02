@@ -5,9 +5,19 @@ import PackageDescription
 
 let package = Package(
     name: "SupportPackage",
-    products: [.library(name: "SupportPackage", targets: ["SupportPackage"])],
+    platforms: [.iOS(.v16)],
+    products: [
+        .library(name: "SupportPackage", targets: ["SupportPackage"]),
+        .library(name: "SupportPackageViews", targets: ["SupportPackageViews"])
+    ],
     targets: [
-        .target(name: "SupportPackage", dependencies: []),
+        .target(name: "SupportPackage"),
+        .target(
+            name: "SupportPackageViews",
+            resources: [
+                .process("Fonts")
+            ]
+        ),
         .testTarget(name: "SupportPackageTests", dependencies: ["SupportPackage"])
     ]
 )
