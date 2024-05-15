@@ -3,6 +3,7 @@ import SwiftUI
 public struct Icon: View {
     
     public enum Size: Double {
+        case tiny = 12
         case small = 16
         case normal = 20
         case large = 24
@@ -27,7 +28,7 @@ public struct Icon: View {
         if let content {
             content.image
                 .resizable()
-                .scaledToFit()
+                .aspectRatio(contentMode: .fit)
                 .frame(width: size.rawValue, height: size.rawValue)
         }
     }
@@ -39,5 +40,8 @@ public struct Icon: View {
 }
 
 #Preview {
-    Icon(.system("bus.fill"))
+    HStack {
+        Icon(.system("bus.fill"))
+        Icon(.system("bus"), size: .small)
+    }
 }

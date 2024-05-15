@@ -25,9 +25,10 @@ public struct Badge: View {
             Text(text, size: .small, weight: .bold)
                 .foregroundStyle(style.contentColor)
         }
-        .padding(4)
+        .padding(.vertical, 4)
+        .padding(.horizontal, 8)
         .background {
-            RoundedRectangle(cornerRadius: 10)
+            RoundedRectangle(cornerRadius: 8)
                 .foregroundStyle(style.backgroundColor)
                 .border(style.borderColor, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
         }
@@ -42,6 +43,6 @@ public struct Badge: View {
 
 #Preview {
     PreviewWrapper {
-        Badge(text: "1", icon: .system("tram.fill"), style: .init(contentColor: .white, backgroundColor: .red, borderColor: .clear))
+        Badge(text: "32", icon: .system("tram.fill"), style: .init(contentColor: .white, backgroundColor: .red, borderColor: .clear))
     }
 }
