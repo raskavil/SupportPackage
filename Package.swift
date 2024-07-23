@@ -14,6 +14,7 @@ let package = Package(
         .target(name: "SupportPackage"),
         .target(
             name: "SupportPackageViews",
+            dependencies: ["SupportPackage"],
             resources: [
                 .process("Fonts")
             ]
