@@ -11,7 +11,9 @@ public struct SlotMachineNumber: View {
                 timer = Timer.scheduledTimer(withTimeInterval: 1 / Double(numbersPerSecond), repeats: true) { [weak self] _ in
                     guard let self else { return }
                     if self.currentNumber < self.targetNumber {
-                        self.currentNumber += 1
+                        withAnimation {
+                            self.currentNumber += 1
+                        }
                     } else {
                         self.timer?.invalidate()
                         self.timer = nil
@@ -45,7 +47,7 @@ public struct SlotMachineNumber: View {
     @StateObject private var animationModel = AnimationModel()
     public let textSize = 20.0
     public let number: Int
-    public let numbersPerSecond = 60
+    public let numbersPerSecond = 40
     
     public var body: some View {
         HStack(spacing: 1) {
@@ -55,19 +57,25 @@ public struct SlotMachineNumber: View {
             if let tens = animationModel.tens {
                 digit(tens, idPrefix: "tens")
             }
-            digit(animationModel.units, idPrefix: "units")
+            digit(animationModel.units, idPrefix: "units", transition: .identity)
         }
+        .clipped()
         .onAppear {
             animationModel.numbersPerSecond = numbersPerSecond
             animationModel.targetNumber = number
         }
     }
     
-    private func digit(_ content: String, idPrefix: String) -> some View {
+    private func digit(
+        _ content: String,
+        idPrefix: String,
+        transition: AnyTransition = .push(from: .top)
+    ) -> some View {
         SwiftUI.Text(content)
             .font(.system(size: textSize))
+            .transition(transition)
             .id(idPrefix + content)
-            .transition(.move(edge: .top).combined(with: .opacity))
+            .frame(width: 12)
     }
 
     
@@ -75,5 +83,6 @@ public struct SlotMachineNumber: View {
 
 
 #Preview {
-    SlotMachineNumber(number: 46)
+    SlotMachineNumber(number: 964)
+        .background(Color.green)
 }
